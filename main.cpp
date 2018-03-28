@@ -33,7 +33,7 @@ int main() {
 			break;
 		case 2:
 
-			cin>>value;
+			cin >> value;
 
 			avl.add(avl.root, value);
 

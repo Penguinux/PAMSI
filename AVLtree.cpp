@@ -2,6 +2,18 @@
 #include"AVLtree.h"
 #include<iostream>
 using namespace std;
+
+//template<typename T>
+/*struct AVLTree<T>::Node {
+	T value;			// nodes value
+	Node* parent;		// pointer at nodes parent
+	Node* left;			// pointer at nodes left child
+	Node* right;		// pointer at nodes right child
+	Node() :
+			value(NULL), parent(NULL), left(NULL), right(NULL) {// constructor
+	}
+};*/
+
 template<typename T>
 int AVLTree<T>::height(Node* n) {
 	int h = 0;
@@ -160,7 +172,7 @@ typename AVLTree<T>::Node *AVLTree<T>::balance_r(Node* n) {
 template<typename T>
 void AVLTree<T>::add(Node* n, T x) {
 
-	if (root->value == 0)			// if root is empty
+	if (root->value == NULL)			// if root is empty
 		root->value = x;
 	else {
 
@@ -330,39 +342,97 @@ void AVLTree<T>::display(Node *n, int level)
 	if (n != NULL)
 
 	{
-
+		if(root->value!=NULL){
 		display(n->right, level + 1);
-		cout << "        \n";
-		if (n->value == root->value)
+		cout << "         "<<endl;;
+		if (n->value == root->value  )
 
-			cout << "Root -> ";
+			cout << "R: ";
+
 
 		for (int i = 0; i < level && n->value != root->value; i++)
 
-			cout << "        ";
+			cout << "         ";
 
 		cout << n->value;
-		if (n->parent != NULL) {
-			cout << ' ' << n->parent->value;
-		}
-		cout << '(' << b_factor(n) << ')' << '[' << height(n) << ']';
-		if (n->left == NULL)
-			cout << '0';
-		else
-			cout << n->left->value;
-		if (n->right == NULL)
-			cout << '0';
-		else
-			cout << n->right->value;
 
-		display(n->left, level + 1);
+		display(n->left, level + 1);}
+
+
+		else
+					cout<<"Tree is empty";
 
 	}
 
 }
+
+template<typename T>
+			void AVLTree<T>::display_adv(Node *n, int level){
+	/*      		Structure of display
+	 * 			N P(BF)[H]LR
+	 * 	N - nodes value
+	 * 	P - parent's value
+	 * 	BF - balance factor
+	 *  H - Height
+	 *  L - left child's value
+	 *  R -  right child's value
+	 */
+		if (n != NULL)
+
+		{
+			if(root->value!=NULL){
+			display_adv(n->right, level + 1);
+			cout << "         "<<endl<<endl;
+			if (n->value == root->value  )
+
+				cout << "R: ";
+
+
+			for (int i = 0; i < level && n->value != root->value; i++)
+
+				cout << "         ";
+
+			cout << n->value;
+			if (n->parent != NULL) {
+							cout << ' ' << n->parent->value;
+						}
+						else
+							cout<<" 0";
+						cout << '(' << b_factor(n) << ')' << '[' << height(n) << ']';
+						if (n->left == NULL)
+							cout << '0';
+						else
+							cout << n->left->value;
+						if (n->right == NULL)
+							cout << '0';
+						else
+							cout << n->right->value;
+
+			display_adv(n->left, level + 1);}
+
+
+			else
+						cout<<"Tree is empty";
+
+		}
+
+	}
+template<typename T>
+void AVLTree<T>::treeheight(){
+	if(root->value==NULL)
+		cout<<endl<<"Tree is empty"<<endl;
+	else{
+	int h=height(root);
+	cout<<endl<<"Height of the tree is: "<<h<<endl;
+	}
+
+}
+
+
+
 template<typename T>
 void AVLTree<T>::clear(Node* n){
-	if(n->value != 0){
+	if(n->value != NULL){
 		remove(n, n->value);
 		clear(root);
 	}
@@ -370,28 +440,39 @@ void AVLTree<T>::clear(Node* n){
 }
 template<typename T>
 void AVLTree<T>::preorder(Node* n) {
+	if(root->value==NULL)
+		cout<<"Tree is empty";
+	else{
 	if (n != NULL) {
 		cout << n->value << ' ';
 		preorder(n->left);
 		preorder(n->right);
 	}
+	}
 }
 template<typename T>
 void AVLTree<T>::postorder(Node* n) {
+	if(root->value==NULL)
+		cout<<"Tree is empty";
+	else{
 	if (n != NULL) {
 		postorder(n->left);
 		postorder(n->right);
 		cout << n->value << ' ';
 	}
+	}
 }
 template<typename T>
 void AVLTree<T>::inorder(Node* n) {
-
+if(root->value==NULL)
+	cout<<"Tree is empty";
+else{
 	if (n != NULL) {
 		inorder(n->left);
 		cout << n->value << ' ';
 		inorder(n->right);
 	}
+}
 
 }
 
